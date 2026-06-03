@@ -1,14 +1,13 @@
 // api/routes/family.js
+// LEGADO: estas rotas retornam dados globais sem filtro de festa.
+// Utilize /api/parties/:partyId/families para acesso correto e isolado.
 const express = require("express");
 const router = express.Router();
-const FamilyController = require("../../controllers/FamilyController");
 
-router.get("/", FamilyController.getAll);
-router.get("/:id", FamilyController.getById);
-router.post("/", FamilyController.create);
-router.put("/:id", FamilyController.update);
-router.delete("/:id", FamilyController.delete);
-router.post("/:id/members", FamilyController.addMember);
-router.delete("/:id/members/:personId", FamilyController.removeMember);
+router.all("*", (req, res) => {
+  res.status(410).json({
+    error: "Rota descontinuada. Use /api/parties/:partyId/families",
+  });
+});
 
 module.exports = router;

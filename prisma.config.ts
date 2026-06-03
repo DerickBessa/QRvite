@@ -8,7 +8,6 @@ export default defineConfig({
   migrations: {
     path: "prisma/migrations",
   },
-  datasource: {
-    url: process.env["DATABASE_URL"],
-  },
+  // A URL do banco é lida via env("DATABASE_URL") no schema.prisma.
+  // Não declarar datasource.url aqui evita o conflito de validação do Prisma 6+.
 });

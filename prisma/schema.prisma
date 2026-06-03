@@ -31,8 +31,12 @@ model Family {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  partyId     String
+  party       Party    @relation(fields: [partyId], references: [id], onDelete: Cascade)
+
   members     Person[]
 
+  @@index([partyId])
   @@map("families")
 }
 
@@ -48,6 +52,7 @@ model Party {
   adminId     String
   admin       Person   @relation("PartyAdmin", fields: [adminId], references: [id])
   guests      Person[] @relation("PartyGuests")
+  families    Family[]
 
   @@map("parties")
 }
