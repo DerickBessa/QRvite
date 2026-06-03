@@ -1,5 +1,3 @@
-// controllers/PartyController.js
-
 const PartyService = require("../services/PartyService");
 
 const handle = (fn) => async (req, res) => {
@@ -34,6 +32,14 @@ const PartyController = {
 
   getCheckins: handle(async (req, res) => {
     res.json(await PartyService.getCheckins(req.params.id));
+  }),
+
+  addGuest: handle(async (req, res) => {
+    res.json(await PartyService.addGuest(req.params.id, req.body.personId));
+  }),
+
+  removeGuest: handle(async (req, res) => {
+    res.json(await PartyService.removeGuest(req.params.id, req.params.personId));
   }),
 };
 

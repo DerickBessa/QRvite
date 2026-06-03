@@ -1,5 +1,3 @@
-// services/PartyService.js
-
 const PartyRepository = require("../repositories/PartyRepository");
 const Party = require("../models/Party");
 
@@ -32,7 +30,12 @@ class PartyService {
     const party = await this.getById(id);
     const newStart = startDate ? new Date(startDate) : party.startDate;
     const newEnd = endDate ? new Date(endDate) : party.endDate;
-    Party.validate({ titulo: titulo ?? party.titulo, adminId: adminId ?? party.adminId, startDate: newStart, endDate: newEnd });
+    Party.validate({
+      titulo: titulo ?? party.titulo,
+      adminId: adminId ?? party.adminId,
+      startDate: newStart,
+      endDate: newEnd,
+    });
 
     return PartyRepository.update(id, {
       ...(titulo && { titulo: titulo.trim() }),
@@ -53,6 +56,21 @@ class PartyService {
     const total = party.guests.length;
     const checkedIn = party.guests.filter((g) => g.isUsed).length;
     return { partyId: party.id, titulo: party.titulo, total, checkedIn, pending: total - checkedIn };
+  }
+
+  async addGuest(id, personId) {
+    await this.getById(id);
+    if (!personId) throw new Error("personId é obrigatório");
+    return PartyRepository.update(id, {
+      guests: { connect: { id: personId } },
+    });
+  }
+
+  async removeGuest(id, personId) {
+    await this.getById(id);
+    return PartyRepository.update(id, {
+      guests: { disconnect: { id: personId } },
+    });
   }
 }
 
