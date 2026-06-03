@@ -1,7 +1,7 @@
 // services/PartyService.js
 
 const PartyRepository = require("../repositories/PartyRepository");
-const Party = require("../Backend/models/Party");
+const Party = require("../models/Party");
 
 class PartyService {
   async getAll() {

@@ -1,7 +1,7 @@
 // api/routes/person.js
 const express = require("express");
 const router = express.Router();
-const PersonController = require("../../Backend/controllers/PersonController");
+const PersonController = require("../../controllers/PersonController");
 
 router.get("/", PersonController.getAll);
 router.get("/:id", PersonController.getById);

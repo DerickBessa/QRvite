@@ -1,7 +1,7 @@
 // api/routes/family.js
 const express = require("express");
 const router = express.Router();
-const FamilyController = require("../../Backend/controllers/FamilyController");
+const FamilyController = require("../../controllers/FamilyController");
 
 router.get("/", FamilyController.getAll);
 router.get("/:id", FamilyController.getById);

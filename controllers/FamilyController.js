@@ -1,6 +1,6 @@
 // controllers/FamilyController.js
 
-const FamilyService = require("../../services/FamilyService");
+const FamilyService = require("../services/FamilyService");
 
 const handle = (fn) => async (req, res) => {
   try {

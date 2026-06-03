@@ -1,6 +1,6 @@
 // controllers/PersonController.js
 
-const PersonService = require("../../services/PersonService");
+const PersonService = require("../services/PersonService");
 
 // Helper pra não repetir try/catch em todo lugar
 const handle = (fn) => async (req, res) => {

@@ -1,7 +1,7 @@
 // api/routes/party.js
 const express = require("express");
 const router = express.Router();
-const PartyController = require("../../Backend/controllers/PartyController");
+const PartyController = require("../../controllers/PartyController");
 
 router.get("/", PartyController.getAll);
 router.get("/:id", PartyController.getById);

@@ -1,6 +1,6 @@
 // controllers/PartyController.js
 
-const PartyService = require("../../services/PartyService");
+const PartyService = require("../services/PartyService");
 
 const handle = (fn) => async (req, res) => {
   try {
