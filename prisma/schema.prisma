@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Person {
+  id         String   @id @default(uuid())
+  nome       String
+  qrCodeIMG  String?
+  isUsed     Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  familyId   String?
+  family     Family?  @relation(fields: [familyId], references: [id], onDelete: SetNull)
+
+  partiesAsAdmin Party[] @relation("PartyAdmin")
+  parties        Party[] @relation("PartyGuests")
+
+  @@map("persons")
+}
+
+model Family {
+  id          String   @id @default(uuid())
+  familyName  String
+  familySize  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members     Person[]
+
+  @@map("families")
+}
+
+model Party {
+  id          String   @id @default(uuid())
+  titulo      String
+  startDate   DateTime
+  endDate     DateTime
+  duration    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  adminId     String
+  admin       Person   @relation("PartyAdmin", fields: [adminId], references: [id])
+  guests      Person[] @relation("PartyGuests")
+
+  @@map("parties")
+}
