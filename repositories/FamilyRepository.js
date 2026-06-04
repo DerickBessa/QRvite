@@ -3,6 +3,7 @@
 const prisma = require("../lib/prisma");
 
 class FamilyRepository {
+  // Busca global — sem filtro de festa (usada nas rotas independentes)
   async findAll() {
     return prisma.family.findMany({
       include: { members: true },
@@ -10,7 +11,7 @@ class FamilyRepository {
     });
   }
 
-  // Busca todas as famílias de uma festa específica
+  // Busca filtrada por festa
   async findByParty(partyId) {
     return prisma.family.findMany({
       where: { partyId },
@@ -19,7 +20,7 @@ class FamilyRepository {
     });
   }
 
-  // Busca família por ID garantindo que pertence à festa informada
+  // Busca família por ID, opcionalmente filtrando por festa
   async findById(id, partyId = null) {
     const where = { id };
     if (partyId) where.partyId = partyId;
